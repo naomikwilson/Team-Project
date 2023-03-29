@@ -30,7 +30,7 @@ Our project schedule is included in the following table. Revisions will be made 
 
 ## 5. Collaboration Plan
 
-Overall, our collaboration plan involves splitting the work as needed (as opposed to splitting deliverables and working independently). We will be working as collaborators on the same repository, which allows us to see and edit each other's code and therefore work more collaboratively. We plan to work in "sprints" or "blocks" where there is a clear objective at the end of each one (see our Project Schedule and our deadlines). This allows us to work towards something and then test our project.
+Overall, our collaboration plan involves splitting the work as needed (as opposed to splitting deliverables and working independently). We will be working as collaborators on the same repository, which allows us to see and edit each other's code and therefore work more collaboratively. We plan to work in "sprints" or "blocks" where there is a clear objective at the end of each one (see our Project Schedule for more information). This allows us to work towards something and then test our project.
 
 ## 6. Risks and Limitations
 
