@@ -52,8 +52,6 @@ def login(driver, url, username, password):
 def capital_IQ(driver, company):
     """
     Downloads Comparative Analysis file for the company.
-
-    Returns modified company name (to be used for move_file() function).
     
     Sources for code (in addition to sources for login() function):
     - https://selenium-python.readthedocs.io/locating-elements.html 
@@ -111,7 +109,7 @@ def driver_wait(driver, action):
     """
     Driver waits util action can be done.
 
-    actions:
+    Actions:
     - 1: wait for page to load or download to complete
     - 2: wait for Capital IQ page to load
 
