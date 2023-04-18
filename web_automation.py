@@ -8,6 +8,7 @@ import glob
 import os
 import os.path
 
+
 def create_driver():
     """
     Creates driver that opens files in incognito.
@@ -19,6 +20,7 @@ def create_driver():
     c.add_argument("--incognito")
     driver = webdriver.Chrome('chromedriver', options=c)
     return driver
+
 
 def login(driver, url, username, password):
     """
@@ -44,15 +46,18 @@ def login(driver, url, username, password):
     # Tries to find and click on "yes" button on "stay signed in?" page
     # If this is not possible, it means an error has occured (username or password is incorrect)
     try:
-        driver.find_element(By.XPATH, "//input[@id='idSIButton9' and @value='Yes']").click()
+        driver.find_element(
+            By.XPATH, "//input[@id='idSIButton9' and @value='Yes']").click()
     except:
-        raise ValueError("[!] Login failed. Incorrect username or password used.")
+        raise ValueError(
+            "[!] Login failed. Incorrect username or password used.")
     driver_wait(driver, 2)
+
 
 def capital_IQ(driver, company):
     """
     Downloads Comparative Analysis file for the company.
-    
+
     Sources for code (in addition to sources for login() function):
     - https://selenium-python.readthedocs.io/locating-elements.html 
     - https://stackoverflow.com/questions/14596884/remove-text-between-and 
@@ -63,14 +68,17 @@ def capital_IQ(driver, company):
     driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(company)
     driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(Keys.ENTER)
 
-    driver.find_element(By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
+    driver.find_element(
+        By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
     driver.find_element(By.ID, "ll_7_26_2305").click()
 
     # download Excel file
-    driver.find_element(By.XPATH, "//img[@title='Download Comp Set to Excel']").click()
+    driver.find_element(
+        By.XPATH, "//img[@title='Download Comp Set to Excel']").click()
     time.sleep(2)
 
     driver.close()
+
 
 def move_file(user):
     """
@@ -105,6 +113,7 @@ def move_file(user):
 
     print("Download complete. File is now in the excel_files folder.")
 
+
 def driver_wait(driver, action):
     """
     Driver waits util action can be done.
@@ -122,7 +131,8 @@ def driver_wait(driver, action):
     else:
         WebDriverWait(driver=driver, timeout=30).until(
             lambda x: x.find_element(By.ID, "onetrust-accept-btn-handler"))
-    
+
+
 def main():
     username = input("Enter your Babson email -> ")
     password = input("Enter your password -> ")
@@ -134,7 +144,9 @@ def main():
         capital_IQ(driver, company)
         move_file(user)
     except:
-        raise ValueError("[!] Incorrect company name or Windows user name entered.")
+        raise ValueError(
+            "[!] Incorrect company name or Windows user name entered.")
+
 
 if __name__ == '__main__':
     main()
