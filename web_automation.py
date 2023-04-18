@@ -35,7 +35,7 @@ def login(driver, url, username, password):
     driver.implicitly_wait(0.5)
     driver.get(url)
 
-    # Log in (fill in username, click button; repeat for password)
+    # Log in (fill in username, click button; repeat for password).
     driver.find_element(By.ID, "i0116").send_keys(username)
     driver.find_element(By.ID, "i0116").send_keys(Keys.ENTER)
     time.sleep(1)
@@ -43,8 +43,8 @@ def login(driver, url, username, password):
     driver.find_element(By.ID, "i0118").send_keys(Keys.ENTER)
     driver_wait(driver, 1)
 
-    # Tries to find and click on "yes" button on "stay signed in?" page
-    # If this is not possible, it means an error has occured (username or password is incorrect)
+    # Try to find and click on "yes" button on "stay signed in?" page.
+    # If this is not possible, it means an error has occured (username or password is incorrect).
     try:
         driver.find_element(
             By.XPATH, "//input[@id='idSIButton9' and @value='Yes']").click()
@@ -62,10 +62,10 @@ def capital_IQ(driver, companies):
     - https://selenium-python.readthedocs.io/locating-elements.html 
     - https://stackoverflow.com/questions/14596884/remove-text-between-and 
     """
-    # Clicks "Accept Cookies"
+    # Click "Accept Cookies".
     driver.find_element(By.ID, "onetrust-accept-btn-handler").click()
 
-    # Puts user-inputted company names into search box and clicks on first result on page
+    # Put user-inputted company names into search box and click on first result on page.
     companies = companies.replace(" ", "")
     companies_list = companies.split(",")
 
@@ -78,18 +78,20 @@ def capital_IQ(driver, companies):
             By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
         driver.find_element(By.ID, "ll_7_26_2305").click()
 
-        # download Excel file
+        # Download Excel file.
         driver.find_element(
             By.XPATH, "//img[@title='Download Comp Set to Excel']").click()
         time.sleep(2)
 
     driver.close()
-    return companies_list # to be used in move_file function to see the number of files that need to be moved
+
+    # Company_list will be used in move_file() function to get number of files that need to be moved.
+    return companies_list
 
 
 def move_file(username, companies_list):
     """
-    Moves Excel file from Downloads folder to excel_files folder in this repository.
+    Moves Excel files from Downloads folder to excel_files folder in this repository.
 
     Sources for code:
     - https://www.learndatasci.com/solutions/python-move-file/
@@ -105,10 +107,10 @@ def move_file(username, companies_list):
     file_type = "/*xls"
     files = glob.glob(folder_path + file_type)
 
-    # Sort files based on creation time, select number of company files downloaded
+    # Sort files based on creation time, select number of company files downloaded.
     recent_files = sorted(files, key=os.path.getctime, reverse=True)[:number_of_files]
 
-    # Move file to excel_files folder in this repository
+    # Move files to excel_files folder in this repository.
     excel_folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
     for file in recent_files:
         shutil.move(file, excel_folder_path)
