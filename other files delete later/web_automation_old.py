@@ -54,7 +54,7 @@ def login(driver, url, username, password):
     driver_wait(driver, 2)
 
 
-def capital_IQ(driver, companies):
+def capital_IQ(driver, company):
     """
     Downloads Comparative Analysis file for the company.
 
@@ -62,32 +62,25 @@ def capital_IQ(driver, companies):
     - https://selenium-python.readthedocs.io/locating-elements.html 
     - https://stackoverflow.com/questions/14596884/remove-text-between-and 
     """
-    # Clicks "Accept Cookies"
+    # Puts user-inputted company name into search box and clicks on first result on page
     driver.find_element(By.ID, "onetrust-accept-btn-handler").click()
+    driver.find_element(By.CLASS_NAME, "cSearchBoxDisabled").click()
+    driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(company)
+    driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(Keys.ENTER)
 
-    # Puts user-inputted company names into search box and clicks on first result on page
-    companies = companies.replace(" ", "")
-    companies_list = companies.split(",")
+    driver.find_element(
+        By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
+    driver.find_element(By.ID, "ll_7_26_2305").click()
 
-    for names in companies_list:
-        driver.find_element(By.CLASS_NAME, "cSearchBoxDisabled").click()
-        driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(names)
-        driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(Keys.ENTER)
-
-        driver.find_element(
-            By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
-        driver.find_element(By.ID, "ll_7_26_2305").click()
-
-        # download Excel file
-        driver.find_element(
-            By.XPATH, "//img[@title='Download Comp Set to Excel']").click()
-        time.sleep(2)
+    # download Excel file
+    driver.find_element(
+        By.XPATH, "//img[@title='Download Comp Set to Excel']").click()
+    time.sleep(2)
 
     driver.close()
-    return companies_list # to be used in move_file function to see the number of files that need to be moved
 
 
-def move_file(username, companies_list):
+def move_file(user):
     """
     Moves Excel file from Downloads folder to excel_files folder in this repository.
 
@@ -95,23 +88,28 @@ def move_file(username, companies_list):
     - https://www.learndatasci.com/solutions/python-move-file/
     - https://datatofish.com/latest-file-python/ 
     - https://stackoverflow.com/questions/185936/how-to-delete-the-contents-of-a-folder
-    - ChatGPT aided in the debugging process
     """
-
-    user, __ = username.split("@")
-    number_of_files = len(companies_list)
-
+    # Grab the latest downloaded file
     folder_path = f"C:/Users/{user}/Downloads/"
     file_type = "/*xls"
     files = glob.glob(folder_path + file_type)
+    excel_file_path = max(files, key=os.path.getctime)
 
-    # Sort files based on creation time, select number of company files downloaded
-    recent_files = sorted(files, key=os.path.getctime, reverse=True)[:number_of_files]
+    # Delete any files in excel_files folder (in case the file already exists in the folder)
+    folder = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     # Move file to excel_files folder in this repository
     excel_folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
-    for file in recent_files:
-        shutil.move(file, excel_folder_path)
+    shutil.move(excel_file_path, excel_folder_path)
 
     print("Download complete. File is now in the excel_files folder.")
 
@@ -138,16 +136,16 @@ def driver_wait(driver, action):
 def main():
     username = input("Enter your Babson email -> ")
     password = input("Enter your password -> ")
-    companies = input("Enter companies of interest; separate each by a comma -> ")
+    company = input("Enter a company -> ")
+    user = input("Enter your Windows user name -> ")
     driver = create_driver()
     login(driver, "https://secure.signin.spglobal.com/sso/saml2/0oa1mqx8p77XSX10T1d8/app/spglobaliam_sp_1/exk1mregn1oWwP2NB1d8/sso/saml?RelayState=https://www.capitaliq.com/CIQDotNet/saml-sso.aspx", username, password)
     try:
-        companies_list = capital_IQ(driver, companies)
-        move_file(username, companies_list)
+        capital_IQ(driver, company)
+        move_file(user)
     except:
         raise ValueError(
-            "[!] Incorrect company name or format; if entering multiple companies, please include commas between company names.")
-    
+            "[!] Incorrect company name or Windows user name entered.")
 
 
 if __name__ == '__main__':
