@@ -30,17 +30,26 @@ def mass_convert_xls_to_xlsm(folder_path):
             xls_to_xlsm(file_path)
 
 
-def add_sheet(file_path):
+def inject_vba_code(file_path):
     """
 
     """
-    print(file_path)
-    print("-"*50)
-    wb = load_workbook(file_path)
-    # create sheet for analysis
-    analysis_sheet = wb.create_sheet("Compco and Benchmarking")
-    # save excel
-    wb.save(file_path)
+    # open the workbook in excel
+    wb = xw.Book(file_path)
+
+    # open the VBA editor
+    wb.app.api.VBE.MainWindow.Visible = True
+
+    # get a reference to the VBA Project
+    vba_project = wb.app.api.VBE.ActiveVBProject
+
+    # Create New Module and inject code
+    module = vba_project.VBComponents.Add(1)
+    module.CodeModule.AddFromString("My Function() \n ")
+
+    # save changes and close the VBA editor
+    wb.app.api.VBE.MainWindow.Visible = False
+    wb.save()
 
 
 def main():
@@ -48,6 +57,11 @@ def main():
     user = input("Enter your Babson Username -> ")
     folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
     mass_convert_xls_to_xlsm(folder_path)
+
+    file_path = "C:/Users/savilabermudez1/Documents/GitHub/Team-Project/excel_files/Company Comparable Analysis Apple Inc  (1).xlsm"
+    print(file_path)
+    inject_vba_code(file_path)
+    print("Done")
 
 
     # add_sheet_all(folder_path)
