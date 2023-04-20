@@ -58,9 +58,8 @@ def capital_IQ(driver, companies):
     """
     Downloads Comparative Analysis file for the company.
 
-    Sources for code (in addition to sources for login() function):
+    Source for code (in addition to sources for login() function):
     - https://selenium-python.readthedocs.io/locating-elements.html 
-    - https://stackoverflow.com/questions/14596884/remove-text-between-and 
     """
     # Click "Accept Cookies".
     driver.find_element(By.ID, "onetrust-accept-btn-handler").click()
@@ -96,7 +95,6 @@ def move_file(username, companies_list):
     Sources for code:
     - https://www.learndatasci.com/solutions/python-move-file/
     - https://datatofish.com/latest-file-python/ 
-    - https://stackoverflow.com/questions/185936/how-to-delete-the-contents-of-a-folder
     - ChatGPT aided in the debugging process
     """
 
