@@ -85,8 +85,8 @@ def inject_vba_code(file_path, vba_code):
         macro()
 
     # close and save workbook
-    # wb.save()
-    # wb.close()
+    wb.save()
+    wb.close()
 
 
 def main():

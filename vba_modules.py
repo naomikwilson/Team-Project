@@ -21,8 +21,6 @@ Sub Benchmarking()
     Application.CutCopyMode = False
     ActiveCell.FormulaR1C1 = _
         "=INDEX('Operating Statistics'!R14C[-2]:R27C[-2],MATCH('COMPCO AND BENCHMARKING'!RC3,'Operating Statistics'!R14C1:R27C1,0))"
-
-   
     Range("D7:D17").Select
     Selection.FillDown
     Range("D7:O17").Select
@@ -39,7 +37,6 @@ Sub Benchmarking()
     Range("A14").Select
     Selection.End(xlDown).Select
     Selection.End(xlDown).Select
-    
     Selection.Copy
     Sheets("COMPCO AND BENCHMARKING").Select
     Range("C6").Select
@@ -52,8 +49,6 @@ End Sub
 Sub Macro2()
 
 End Sub
-
-
 
 """)
 
