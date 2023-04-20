@@ -106,7 +106,8 @@ def move_file(username, companies_list):
     files = glob.glob(folder_path + file_type)
 
     # Sort files based on creation time, select number of company files downloaded.
-    recent_files = sorted(files, key=os.path.getctime, reverse=True)[:number_of_files]
+    recent_files = sorted(files, key=os.path.getctime,
+                          reverse=True)[:number_of_files]
 
     # Move files to excel_files folder in this repository.
     excel_folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
@@ -138,7 +139,8 @@ def driver_wait(driver, action):
 def main():
     username = input("Enter your Babson email -> ")
     password = input("Enter your password -> ")
-    companies = input("Enter companies of interest; separate each by a comma -> ")
+    companies = input(
+        "Enter companies of interest; separate each by a comma -> ")
     driver = create_driver()
     login(driver, "https://secure.signin.spglobal.com/sso/saml2/0oa1mqx8p77XSX10T1d8/app/spglobaliam_sp_1/exk1mregn1oWwP2NB1d8/sso/saml?RelayState=https://www.capitaliq.com/CIQDotNet/saml-sso.aspx", username, password)
     try:
@@ -147,7 +149,6 @@ def main():
     except:
         raise ValueError(
             "[!] Incorrect company name or format; if entering multiple companies, please include commas between company names.")
-    
 
 
 if __name__ == '__main__':
