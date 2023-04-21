@@ -5,7 +5,9 @@
     "python.formatting.provider": "none",
     "cSpell.words": [
         "aspose",
+        "compco",
         "openpyxl",
+        "xlwing",
         "xlwings"
     ]
 }
