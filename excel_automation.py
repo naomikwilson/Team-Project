@@ -39,11 +39,10 @@ def mass_convert_xls_to_xlsm(folder_path):
 
 
 def mass_analysis(folder_path):
-
     for file_name in os.listdir(folder_path):
         if file_name.endswith(".xlsm"):
             file_path = folder_path + "/" + file_name
-            compco_and_benchmarking_analysis(file_path)
+            benchmarking_and_compco(file_path)
 
 
 def extract_macro_names(vba_code):
@@ -57,28 +56,34 @@ def extract_macro_names(vba_code):
     return macro_names
 
 
-def compco_and_benchmarking_analysis(file_path):
+def benchmarking_and_compco(file_path):
     """
     Adds new sheet for analysis and injects vba macro to preform analysis.
-
+    https://www.geeksforgeeks.org/working-with-excel-files-in-python-using-xlwings/
+    https://docs.xlwings.org/en/stable/quickstart.html#macros-call-python-from-excel
+    http://www.et.byu.edu/~treedoug/_pages/teaching/ChEn263/Lectures/Lec23-XLWings_handout.pdf
+    https://www.dataquest.io/blog/python-excel-xlwings-tutorial/
     """
     # open the workbook in excel and set references names
     wb = xw.Book(file_path)
 
-    analysis_sheet_name = "COMPCO AND BENCHMARKING"
+    benchmarking_sheet = "BENCHMARKING"
+    compco_sheet = "COMPCO"
     financial_sheet = "Financial Data"
     trading_multiples = "Trading Multiples"
     operating_sheet = "Operating Statistics"
 
     # add analysis sheet
     try:
-        wb.sheets.add(analysis_sheet_name, before=financial_sheet)
+        wb.sheets.add(benchmarking_sheet, before=financial_sheet)
+        wb.sheets.add(compco_sheet, before=benchmarking_sheet)
+
     except ValueError:
         pass
 
     # open VBA editor
     vb = wb.app.api.VBE
-    # add new module
+    # add new module & add vba_code str
     analysis_module = vb.VBProjects(1).VBComponents.Add(1)
     analysis_module.CodeModule.AddFromString(vba_code)
 
@@ -87,30 +92,32 @@ def compco_and_benchmarking_analysis(file_path):
         sheet.api.Cells.UnMerge()
 
     # select sheets as objects to navigate
-    analysis_sheet = wb.sheets[analysis_sheet_name]
-    fd_sheet = wb.sheets[financial_sheet]
-    tm_sheet = wb.sheets[trading_multiples]
-    op_sheet = wb.sheets[operating_sheet]
+    an_sh = wb.sheets[benchmarking_sheet]
+    fd_sh = wb.sheets[financial_sheet]
+    tm_sh = wb.sheets[trading_multiples]
+    op_sh = wb.sheets[operating_sheet]
+    comp_sh = wb.sheets[compco_sheet]
 
     # company names and stats set up
-    names_and_metrics = op_sheet.range("A14").expand('table')
-    dest_cells = analysis_sheet.range("C6")
+    names_and_metrics = op_sh.range("A14").expand('table')
+    dest_cells = an_sh.range("C6")
     empty_rows = names_and_metrics.offset(
         names_and_metrics.rows.count, 0).resize(2)
     empty_rows.delete()
-    names_and_metrics = op_sheet.range("A14").expand('table')
+    names_and_metrics = op_sh.range("A14").expand('table')
     names_and_metrics.copy(destination=dest_cells)
 
     # Set up Percentile table
-    analysis_sheet.range("C28").value = "Company vs Peers"
-    analysis_sheet.range("C30").value = "Percentiles"
-    percentile_range = analysis_sheet.range("C31:C51")
+    an_sh.range("C28").value = "Percentile Average"
+    an_sh.range("C29").value = "Company vs Peers"
+    an_sh.range("C30").value = "Percentiles"
+    percentile_range = an_sh.range("C31:C51")
     percentile_range.value = [[i/100] for i in range(0, 101, 5)]
     percentile_range.number_format = "0%"
 
     # Create Percentiles
-    data_range = analysis_sheet.range("C6").expand("table").offset(1, 1)
-    percentile_equations = analysis_sheet.range("D31:O51")
+    data_range = an_sh.range("C6").expand("table").offset(1, 1)
+    percentile_equations = an_sh.range("D31:O51")
 
     for i, col in enumerate(percentile_equations.columns):
         data_col_letter = chr(ord('C') + i + 1)
@@ -118,6 +125,7 @@ def compco_and_benchmarking_analysis(file_path):
             row_num = cell.row
             percentile = f"C{row_num}"
             data_row_num = j + 7
+            # MAKE DYNAMIC
             formula_str = f"=PERCENTILE({data_col_letter}7:{data_col_letter}16,{percentile})"
             try:
                 cell.formula = formula_str
@@ -126,21 +134,21 @@ def compco_and_benchmarking_analysis(file_path):
                 print(
                     f"Error: Failed to set formula '{formula_str} in column {col.column}, row {cell.row}")
                 print(f"Exception: {e}")
-    format_percentile = analysis_sheet.range("D31").expand('table')
+    format_percentile = an_sh.range("D31").expand('table')
     format_percentile.number_format = "0%"
 
     # Paste Index Match Formula
-    row = analysis_sheet.range("C6").expand('table').last_cell.row
-    comp_range = analysis_sheet.range("D29:O29")
+    row = an_sh.range("C6").expand('table').last_cell.row
+    comp_range = an_sh.range("D29:O29")
     for i, col in enumerate(comp_range):
         try:
             column = chr(ord("C")+i+1)
             if column in ["M", "O"]:
-                formula_str = f"=1-INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51))"
+                formula_str = f"=IFERROR(1-INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51)),"")"
             else:
-                formula_str = f"=INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51))"
-            analysis_sheet.range(f"{column}29").formula = formula_str
-            analysis_sheet.range(f"{column}29").number_format = "0%"
+                formula_str = f"=IFERROR(INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51)),"")"
+            an_sh.range(f"{column}29").formula = formula_str
+            an_sh.range(f"{column}29").number_format = "0%"
         except Exception as e:
             print(
                 f"Error: Failed to set formula '{formula_str} in column {col}, row {row}")
@@ -148,17 +156,20 @@ def compco_and_benchmarking_analysis(file_path):
 
     # Find average comp % of specified company -- used in comparative company analysis
     avg_str = f"=AVERAGE({'D29:O29'})"
-    print(avg_str)
-    analysis_sheet.range("D28").formula = avg_str
-    analysis_sheet.range("D28").number_format = "0%"
+    an_sh.range("D28").formula = avg_str
+    an_sh.range("D28").number_format = "0%"
 
-    name = extract_macro_names(vba_code)[0]
-    print(name)
-    run_macro(wb, name)
+    # Run formatting macro
+    run_macro(wb, vba_code, 0)
+
+    """
+    CODE TO RUN COMPCO
+
+    """
 
     # close and save workbook
-    wb.save()
-    wb.close()
+    # wb.save()
+    # wb.close()
 
 
 def run_all_macros(wb, vba_code):
@@ -171,22 +182,26 @@ def run_all_macros(wb, vba_code):
         macro()
 
 
-def run_macro(wb, name):
+def run_macro(wb, vba_code, location):
     module_name = "Module1."
-    macro_names = name
-    macro = wb.macro(module_name + macro)
-    print(macro)
-    macro()
+    macro_names = extract_macro_names(vba_code)[location]
+    macro_names = wb.macro(module_name + macro_names)
+    print(macro_names)
+    macro_names()
 
 
 def main():
     # user = input("Enter your Babson Username -> ")
-    # folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
-    # mass_convert_xls_to_xlsm(folder_path)
+    user = "savilabermudez1"
+    folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
+    mass_convert_xls_to_xlsm(folder_path)
+    file_path = "C:/Users/savilabermudez1/Documents/GitHub/Team-Project/excel_files/Company Comparable Analysis Apple Inc  (2).xlsm"
+    # mass_analysis(folder_path)
+    # print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
+    # """Individual Testing Below """
 
-    file_path = "C:/Users/savilabermudez1/Documents/GitHub/Team-Project/excel_files/Company Comparable Analysis Microsoft Corporation (1).xlsm"
-    compco_and_benchmarking_analysis(file_path)
-    print(f"-"*50, "\n COMPCO and Benchmarking was Successfully Executed")
+    benchmarking_and_compco(file_path)
+    print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
 
 
 if __name__ == '__main__':
