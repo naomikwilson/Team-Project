@@ -1,3 +1,7 @@
+"""
+In-Class Demo Version
+"""
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -37,10 +41,13 @@ def login(driver, url, username, password):
 
     # Log in (fill in username, click button; repeat for password).
     driver.find_element(By.ID, "i0116").send_keys(username)
+    time.sleep(1)
     driver.find_element(By.ID, "i0116").send_keys(Keys.ENTER)
     time.sleep(1)
     driver.find_element(By.ID, "i0118").send_keys(password)
+    time.sleep(1)
     driver.find_element(By.ID, "i0118").send_keys(Keys.ENTER)
+    time.sleep(1)
     driver_wait(driver, 1)
 
     # Try to find and click on "yes" button on "stay signed in?" page.
@@ -62,6 +69,7 @@ def capital_IQ(driver, companies):
     - https://selenium-python.readthedocs.io/locating-elements.html 
     """
     # Click "Accept Cookies".
+    time.sleep(1)
     driver.find_element(By.ID, "onetrust-accept-btn-handler").click()
 
     # Put user-inputted company names into search box and click on first result on page.
@@ -69,13 +77,19 @@ def capital_IQ(driver, companies):
     companies_list = companies.split(",")
 
     for names in companies_list:
+        time.sleep(1)
         driver.find_element(By.CLASS_NAME, "cSearchBoxDisabled").click()
+        time.sleep(1)
         driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(names)
+        time.sleep(1)
         driver.find_element(By.CLASS_NAME, "cSearchBox").send_keys(Keys.ENTER)
+        time.sleep(1)
 
         driver.find_element(
             By.XPATH, "//tr[@id='SR0']/td[@class='NameCell']/div/span/a").click()
+        time.sleep(1)
         driver.find_element(By.ID, "ll_7_26_2305").click()
+        time.sleep(1)
 
         # Download Excel file.
         driver.find_element(
@@ -138,7 +152,11 @@ def driver_wait(driver, action):
 
 def main():
     username = input("Enter your Babson email -> ")
-    password = input("Enter your password -> ")
+    # password = input("Enter your password -> ")
+
+    from password import PASSWORD
+    password = PASSWORD
+
     companies = input(
         "Enter companies of interest; separate each by a comma -> ")
     driver = create_driver()
