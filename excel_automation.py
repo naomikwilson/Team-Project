@@ -175,6 +175,8 @@ def benchmarking_and_compco(file_path):
     names_range = ben_sh.range("C6").expand('down')
     names_range.copy(destination=comp_sh.range("C6"))
 
+
+    #Identify all desired header pages
     shrout = fd_sh.range("C14").value
     mcap = fd_sh.range("D14").value
     net_debt = fd_sh.range("E14").value
@@ -183,11 +185,24 @@ def benchmarking_and_compco(file_path):
     ntm_ebitda = fd_sh.range("P14").value
     ntm_eps = fd_sh.range("Q14").value
 
-    fd_stats = [shrout, mcap, net_debt, total_ev, ntm_rev, ntm_ebitda, ntm_eps]
+    compco_headers = [shrout, mcap, net_debt, total_ev, ntm_rev, ntm_ebitda, ntm_eps]
 
-    for i, value in enumerate(fd_stats):
+    for i, value in enumerate(compco_headers):
         cell = comp_sh.range("D6").offset(0, i)
         cell.value = value
+
+
+    stat_range = comp_sh.range("D7:J17")
+    for i, col in enumerate(stat_range):
+        try:
+            column = chr(ord("D")+i)
+            formula_str = f"=IFERROR(INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51)),"")"
+            ben_sh.range(f"{column}29").formula = formula_str
+            ben_sh.range(f"{column}29").number_format = "0%"
+        except Exception as e:
+            print(
+                f"Error: Failed to set formula '{formula_str} in column {col}, row {row}")
+            print(f"Exception: {e}")
 
     # close and save workbook
     # wb.save()
