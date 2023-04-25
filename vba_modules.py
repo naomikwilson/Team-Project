@@ -4,9 +4,8 @@ vba_code = ("""
 Sub FormattingV1()
 '
 ' FormattingV1 Macro
-'
 
-'
+    Sheets("BENCHMARKING").Select
     ActiveWindow.DisplayGridlines = False
     Cells.Select
     Selection.Borders(xlDiagonalDown).LineStyle = xlNone

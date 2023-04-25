@@ -84,7 +84,15 @@ def benchmarking_and_compco(file_path):
     # open VBA editor
     vb = wb.app.api.VBE
     # add new module & add vba_code str
+    module_name = "AnalysisModule"
+    for comp in vb.VBProjects(1).VBComponents:
+        if comp.Name == module_name:
+            # If it exists, remove it
+            vb.VBProjects(1).VBComponents.Remove(comp)
+
+    # Add a new module with the specified code
     analysis_module = vb.VBProjects(1).VBComponents.Add(1)
+    analysis_module.Name = module_name
     analysis_module.CodeModule.AddFromString(vba_code)
 
     # loop through each sheet and unmerge cells
@@ -92,7 +100,7 @@ def benchmarking_and_compco(file_path):
         sheet.api.Cells.UnMerge()
 
     # select sheets as objects to navigate
-    an_sh = wb.sheets[benchmarking_sheet]
+    ben_sh = wb.sheets[benchmarking_sheet]
     fd_sh = wb.sheets[financial_sheet]
     tm_sh = wb.sheets[trading_multiples]
     op_sh = wb.sheets[operating_sheet]
@@ -100,7 +108,7 @@ def benchmarking_and_compco(file_path):
 
     # company names and stats set up
     names_and_metrics = op_sh.range("A14").expand('table')
-    dest_cells = an_sh.range("C6")
+    dest_cells = ben_sh.range("C6")
     empty_rows = names_and_metrics.offset(
         names_and_metrics.rows.count, 0).resize(2)
     empty_rows.delete()
@@ -108,16 +116,16 @@ def benchmarking_and_compco(file_path):
     names_and_metrics.copy(destination=dest_cells)
 
     # Set up Percentile table
-    an_sh.range("C28").value = "Percentile Average"
-    an_sh.range("C29").value = "Company vs Peers"
-    an_sh.range("C30").value = "Percentiles"
-    percentile_range = an_sh.range("C31:C51")
+    ben_sh.range("C28").value = "Percentile Average"
+    ben_sh.range("C29").value = "Company vs Peers"
+    ben_sh.range("C30").value = "Percentiles"
+    percentile_range = ben_sh.range("C31:C51")
     percentile_range.value = [[i/100] for i in range(0, 101, 5)]
     percentile_range.number_format = "0%"
 
     # Create Percentiles
-    data_range = an_sh.range("C6").expand("table").offset(1, 1)
-    percentile_equations = an_sh.range("D31:O51")
+    data_range = ben_sh.range("C6").expand("table").offset(1, 1)
+    percentile_equations = ben_sh.range("D31:O51")
 
     for i, col in enumerate(percentile_equations.columns):
         data_col_letter = chr(ord('C') + i + 1)
@@ -134,12 +142,12 @@ def benchmarking_and_compco(file_path):
                 print(
                     f"Error: Failed to set formula '{formula_str} in column {col.column}, row {cell.row}")
                 print(f"Exception: {e}")
-    format_percentile = an_sh.range("D31").expand('table')
+    format_percentile = ben_sh.range("D31").expand('table')
     format_percentile.number_format = "0%"
 
     # Paste Index Match Formula
-    row = an_sh.range("C6").expand('table').last_cell.row
-    comp_range = an_sh.range("D29:O29")
+    row = ben_sh.range("C6").expand('table').last_cell.row
+    comp_range = ben_sh.range("D29:O29")
     for i, col in enumerate(comp_range):
         try:
             column = chr(ord("C")+i+1)
@@ -147,8 +155,8 @@ def benchmarking_and_compco(file_path):
                 formula_str = f"=IFERROR(1-INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51)),"")"
             else:
                 formula_str = f"=IFERROR(INDEX(C31:C51,MATCH({column}{row},{column}31:{column}51)),"")"
-            an_sh.range(f"{column}29").formula = formula_str
-            an_sh.range(f"{column}29").number_format = "0%"
+            ben_sh.range(f"{column}29").formula = formula_str
+            ben_sh.range(f"{column}29").number_format = "0%"
         except Exception as e:
             print(
                 f"Error: Failed to set formula '{formula_str} in column {col}, row {row}")
@@ -156,20 +164,62 @@ def benchmarking_and_compco(file_path):
 
     # Find average comp % of specified company -- used in comparative company analysis
     avg_str = f"=AVERAGE({'D29:O29'})"
-    an_sh.range("D28").formula = avg_str
-    an_sh.range("D28").number_format = "0%"
+    ben_sh.range("D28").formula = avg_str
+    ben_sh.range("D28").number_format = "0%"
 
     # Run formatting macro
     run_macro(wb, vba_code, 0)
+    '''
+    '''
+    # Copy Names Over ()
+    names_range = ben_sh.range("C6").expand('down')
+    names_range.copy(destination=comp_sh.range("C6"))
 
-    """
-    CODE TO RUN COMPCO
+    shrout = fd_sh.range("C14").value
+    mcap = fd_sh.range("D14").value
+    net_debt = fd_sh.range("E14").value
+    total_ev = fd_sh.range("H14").value
+    ntm_rev = fd_sh.range("O14").value
+    ntm_ebitda = fd_sh.range("P14").value
+    ntm_eps = fd_sh.range("Q14").value
 
-    """
+    fd_stats = [shrout, mcap, net_debt, total_ev, ntm_rev, ntm_ebitda, ntm_eps]
+
+    for i, value in enumerate(fd_stats):
+        cell = comp_sh.range("D6").offset(0, i)
+        cell.value = value
 
     # close and save workbook
     # wb.save()
     # wb.close()
+
+
+def test(file_path):
+    wb = xw.Book(file_path)
+    benchmarking_sheet = "BENCHMARKING"
+    compco_sheet = "COMPCO"
+    financial_sheet = "Financial Data"
+    trading_multiples = "Trading Multiples"
+    operating_sheet = "Operating Statistics"
+
+    ben_sh = wb.sheets[benchmarking_sheet]
+    fd_sh = wb.sheets[financial_sheet]
+    tm_sh = wb.sheets[trading_multiples]
+    op_sh = wb.sheets[operating_sheet]
+    comp_sh = wb.sheets[compco_sheet]
+
+    shrout = fd_sh.range("C14").value
+    mcap = fd_sh.range("D14").value
+    net_debt = fd_sh.range("E14").value
+    total_ev = fd_sh.range("H14").value
+    ntm_rev = fd_sh.range("O14").value
+    ntm_ebitda = fd_sh.range("P14").value
+    ntm_eps = fd_sh.range("Q14").value
+
+    fd_stats = [shrout, mcap, net_debt, total_ev, ntm_rev, ntm_ebitda, ntm_eps]
+
+    for i, value in enumerate(fd_stats):
+        print(i, value)
 
 
 def run_all_macros(wb, vba_code):
@@ -183,7 +233,7 @@ def run_all_macros(wb, vba_code):
 
 
 def run_macro(wb, vba_code, location):
-    module_name = "Module1."
+    module_name = "AnalysisModule."
     macro_names = extract_macro_names(vba_code)[location]
     macro_names = wb.macro(module_name + macro_names)
     print(macro_names)
@@ -201,6 +251,7 @@ def main():
     # """Individual Testing Below """
 
     benchmarking_and_compco(file_path)
+    # test(file_path)
     print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
 
 
