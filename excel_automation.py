@@ -175,8 +175,7 @@ def benchmarking_and_compco(file_path):
     names_range = ben_sh.range("C6").expand('down')
     names_range.copy(destination=comp_sh.range("C6"))
 
-
-    #Identify all desired header pages
+    # Identify all desired header pages
     shrout = fd_sh.range("C14").value
     mcap = fd_sh.range("D14").value
     net_debt = fd_sh.range("E14").value
@@ -185,12 +184,12 @@ def benchmarking_and_compco(file_path):
     ntm_ebitda = fd_sh.range("P14").value
     ntm_eps = fd_sh.range("Q14").value
 
-    compco_headers = [shrout, mcap, net_debt, total_ev, ntm_rev, ntm_ebitda, ntm_eps]
+    compco_headers = [shrout, mcap, net_debt,
+                      total_ev, ntm_rev, ntm_ebitda, ntm_eps]
 
     for i, value in enumerate(compco_headers):
         cell = comp_sh.range("D6").offset(0, i)
         cell.value = value
-
 
     stat_range = comp_sh.range("D7:J17")
     for i, col in enumerate(stat_range):
@@ -260,14 +259,15 @@ def main():
     user = "savilabermudez1"
     folder_path = f"C:/Users/{user}/Documents/GitHub/Team-Project/excel_files"
     mass_convert_xls_to_xlsm(folder_path)
-    file_path = "C:/Users/savilabermudez1/Documents/GitHub/Team-Project/excel_files/Company Comparable Analysis Apple Inc  (2).xlsm"
+
+    file_path = "C:/Users/savilabermudez1/Documents/GitHub/Team-Project/excel_files/Company Comparable Analysis Scorpio Tankers Inc .xlsm"
     # mass_analysis(folder_path)
     # print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
-    # """Individual Testing Below """
+    # # """Individual Testing Below """
 
     benchmarking_and_compco(file_path)
-    # test(file_path)
-    print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
+
+    # print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
 
 
 if __name__ == '__main__':
