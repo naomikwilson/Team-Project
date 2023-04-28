@@ -1,6 +1,4 @@
 import os
-import pandas as pd
-from openpyxl import load_workbook, Workbook
 import aspose.cells
 import xlwings as xw
 from vba_modules import vba_code
@@ -177,7 +175,6 @@ def benchmarking_and_compco(file_path):
     relative_valuation(sheet_names)
 
     # Run formatting macro
-    all_macros = extract_macro_names(vba_code)
     compco_format1 = all_macros[1]
     compco_format2 = all_macros[2]
     run_macro(wb, compco_format1)
