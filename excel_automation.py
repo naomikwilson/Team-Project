@@ -64,6 +64,7 @@ def benchmarking_and_compco(file_path):
     http://www.et.byu.edu/~treedoug/_pages/teaching/ChEn263/Lectures/Lec23-XLWings_handout.pdf
     https://www.dataquest.io/blog/python-excel-xlwings-tutorial/
     """
+
     # open the workbook in excel and set references names
     wb = xw.Book(file_path)
 
