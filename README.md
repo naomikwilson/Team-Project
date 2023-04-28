@@ -9,7 +9,7 @@ Team members: Naomi Wilson, Sergio Avila.
 Code is designed to automate Comparable Company Analysis using Python, Excel, and CapitalIQ - as such it is tailored for Babson Students - but will also work on anyone with CapitalIQ credentials. 
 
 ### Objective
-The main idea of our project is to automate Financial Comparable Analysis for any industry (publicly-traded) given a series of names or tickers. Our program would analyze and benchmark on various metrics, then use the weighted average of percentile to perform an analysis of the target company versus a group of competitors to determine which ones are under/overvalued relative to how they rank. Project topics include API, Excel Manipulation, Automation, Software Design, and Financial Analysis.Our project runs in two main functions. One utilizes the selenium library to use user credentials to sign into CapitalIQ and download comparable company data. This has several advantages - it has analyst comparables, forward estimates for metrics and multiples, and allows for excel automation which the team wanted to experience given its real world applications for job settings. The other functionality uses os, wlwings, and aspose libraries to convert the excel files into a usable form and then perform a series of analysis on them. The function also injects and calls VBA code that natively takes care of user friendly formatting. 
+The main idea of our project is to automate Financial Comparable Analysis for any industry (publicly-traded) given a series of names or tickers. Our program would analyze and benchmark on various metrics, then use the weighted average of percentile to perform an analysis of the target company versus a group of competitors to determine which ones are under/overvalued relative to how they rank. Project topics include API, Excel Manipulation, Automation, Software Design, and Financial Analysis. Our project runs in two main functions. One utilizes the selenium library to use user credentials to sign into CapitalIQ and download comparable company data. This has several advantages - it has analyst comparables, forward estimates for metrics and multiples, and allows for excel automation which the team wanted to experience given its real world applications for job settings. The other functionality uses os, wlwings, and aspose libraries to convert the excel files into a usable form and then perform a series of analysis on them. The function also injects and calls VBA code that natively takes care of user friendly formatting. 
 
 
 ## Instructions
@@ -19,7 +19,8 @@ The main idea of our project is to automate Financial Comparable Analysis for an
     3. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze
     4. Wait for code to run - You will be prompted when it is done.The analysis will have been added to each excel sheet
     5. Move these excel sheets to another local folder before running code again
-    6. Make individual edits to each excel as need #This is a starting analysis and not fully comprehensive company valuation
+    6. Make individual edits to each excel as need 
+    #This is a starting analysis and not fully comprehensive company valuation
 
 
 
