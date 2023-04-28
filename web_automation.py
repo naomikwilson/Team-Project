@@ -97,7 +97,6 @@ def move_file(username, companies_list):
     - https://datatofish.com/latest-file-python/ 
     - ChatGPT aided in the debugging process
     """
-
     user, __ = username.split("@")
     number_of_files = len(companies_list)
 
