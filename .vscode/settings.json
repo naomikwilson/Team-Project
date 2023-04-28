@@ -8,10 +8,12 @@
         "Babson",
         "compco",
         "ebitda",
+        "IFERROR",
         "mcap",
         "openpyxl",
         "savilabermudez",
         "shrout",
+        "SUMPRODUCT",
         "xlwing",
         "xlwings"
     ]
