@@ -11,7 +11,7 @@ import os.path
 
 def create_driver():
     """
-    Creates driver that opens files in incognito.
+    Creates driver that opens browser in incognito.
 
     Source for code:
     - https://www.tutorialspoint.com/how-to-open-browser-window-in-incognito-private-mode-using-python-selenium-webdriver 
