@@ -24,7 +24,7 @@ def create_driver():
 
 def login(driver, url, username, password):
     """
-    Logs user into website (url) using username and password.
+    Logs user into Babson login page (url) using username and password.
 
     Sources for code:
     - https://www.thepythoncode.com/article/automate-login-to-websites-using-selenium-in-python 
