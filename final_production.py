@@ -1,5 +1,3 @@
-import web_automation
-import excel_automation
 from web_automation import create_driver, login, capital_IQ, move_file
 from excel_automation import mass_convert_xls_to_xlsm, mass_analysis
 
@@ -22,7 +20,7 @@ def main():
     folder_path = f"C:/Users/{local_username}/Documents/GitHub/Team-Project/excel_files"
     mass_convert_xls_to_xlsm(folder_path)
     mass_analysis(folder_path)
-    print(f"-"*50, "\n Benchmarking was Successfully Executed \n", "-"*50)
+    print(f"-"*50, "\n Benchmarking & Compco was Successfully Executed \n", "-"*50)
 
 
 if __name__ == '__main__':
