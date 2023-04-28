@@ -61,6 +61,28 @@ Below are the required libraries to install to run code. Code runs on python - p
 [glob2](https://pypi.org/project/glob2/0.4.1/)
 
 
+## Third Party Sources
+
+    [XLWING]
+        https://www.geeksforgeeks.org/working-with-excel-files-in-python-using-xlwings/
+        https://docs.xlwings.org/en/stable/quickstart.  html#macros-call-python-from-excel
+        http://www.et.byu.edu/~treedoug/_pages/teaching/ChEn263/Lectures/Lec23-XLWings_handout.pdf
+        https://www.dataquest.io/blog/python-excel-xlwings-tutorial/
+
+    [ASPOSE]
+        https://products.aspose.com/cells/python-net/conversion/xls-to-xlsm/
+
+    [Moving Files Locally]
+        https://www.learndatasci.com/solutions/python-move-file/
+        https://datatofish.com/latest-file-python/ 
+
+    [Locating Web Elements]
+        https://selenium-python.readthedocs.io/locating-elements.html 
+
+    [Selenium]
+        https://www.thepythoncode.com/article/automate-login-to-websites-using-selenium-in-python 
+        https://www.geeksforgeeks.org/find_element_by_id-driver-method-selenium-python/ 
+        https://pythonbasics.org/selenium-keyboard/ 
 
 
 
