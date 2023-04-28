@@ -14,13 +14,14 @@ The main idea of our project is to automate Financial Comparable Analysis for an
 
 ## Instructions
 
-    1. Download required libraries to use selenium, aspose, glob, shutil, time, os, and xlwings
-    2. Fork repository to local computer and ensure folder path is correctly formatted
-    3. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze
-    4. Wait for code to run - You will be prompted when it is done.The analysis will have been added to each excel sheet
-    5. Move these excel sheets to another local folder before running code again
-    6. Make individual edits to each excel as need 
-    #This is a starting analysis and not fully comprehensive company valuation
+    1. Download required libraries to use selenium, aspose, glob, shutil, time, os, and xlwings.
+    2. Fork repository to local computer and ensure folder path is correctly formatted.
+    3. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze.
+    4. Wait for code to run - You will be prompted when it is done.The analysis will have been added to each Excel sheet.
+    5. Move these excel sheets to another local folder before running code again.
+    6. Make individual edits to each Excel as need.
+   
+    #This is a starting analysis and not fully comprehensive company valuation.
 
 
 
@@ -50,7 +51,6 @@ Below are the required libraries to install to run code. Code runs on python - p
   pip install aspose
   pip install glob2
   pip install xlwings
-  
 ```
 
 ## Documentation
