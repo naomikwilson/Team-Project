@@ -8,8 +8,10 @@ Team members: Naomi Wilson, Sergio Avila.
 
 Code is designed to automate Comparable Company Analysis using Python, Excel, and CapitalIQ - as such it is tailored for Babson students - but it could also work for anyone with CapitalIQ credentials (after some modifications). 
 
+
 ### Objective
 The main idea of our project is to automate Financial Comparable Analysis for any industry (publicly-traded) given a series of names or tickers. Our program would analyze and benchmark on various metrics, then use the weighted average of percentile to perform an analysis of the target company versus a group of competitors to determine which ones are under/overvalued relative to how they rank. Project topics include API, Excel Manipulation, Automation, Software Design, and Financial Analysis. Our project runs in two main functions. One utilizes the selenium library to use user credentials to sign into CapitalIQ and download comparable company data. This has several advantages - it has analyst comparables, forward estimates for metrics and multiples, and allows for excel automation which the team wanted to experience given its real world applications for job settings. The other functionality uses os, wlwings, and aspose libraries to convert the excel files into a usable form and then perform a series of analysis on them. The function also injects and calls VBA code that natively takes care of user friendly formatting. 
+
 
 ## Instructions
 
@@ -25,6 +27,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
    
     *This is just a starting analysis and not a fully comprehensive company valuation.
 
+
 ## Download and Installation
 
 Below are the required libraries to install to run code. Code runs on python - please download latest version:
@@ -36,6 +39,7 @@ Below are the required libraries to install to run code. Code runs on python - p
   pip install glob2
   pip install xlwings
 ```
+
 
 ## Screenshots
 
@@ -51,6 +55,7 @@ Below are the required libraries to install to run code. Code runs on python - p
 
 ![Sample Compco](./images/sample_compco.png)
 
+
 ## Documentation
 
 [selenium](https://selenium-python.readthedocs.io/)
@@ -58,6 +63,7 @@ Below are the required libraries to install to run code. Code runs on python - p
 [xlwings](https://docs.xlwings.org/en/latest/)
 
 [glob2](https://pypi.org/project/glob2/0.4.1/)
+
 
 ## Third Party Sources
 
