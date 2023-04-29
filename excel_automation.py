@@ -11,13 +11,14 @@ def xls_to_xlsm(file_path):
     Converts XLS to XLSM - XLS is old excel and not compatible with Openpyxl
     """
     workbook = aspose.cells.Workbook(file_path)
+
     # Split the file path into its directory and file name components
     directory, filename = os.path.split(file_path)
 
-    # # Change the file extension from ".xls" to ".xlsm"
+    # Change the file extension from ".xls" to ".xlsm"
     new_filename = os.path.splitext(filename)[0] + ".xlsm"
 
-    # # Combine the directory and new filename components into a new file path
+    # Combine the directory and new filename components into a new file path
     new_folder_path = os.path.join(directory, new_filename)
     new_folder_path = new_folder_path.replace("\\", "/")
     workbook.save(new_folder_path)
@@ -27,9 +28,7 @@ def xls_to_xlsm(file_path):
 def mass_convert_xls_to_xlsm(folder_path):
     """
     Loops through all XLS files and converts them to XLSM (macro enabled workbook)
-
     """
-
     for file_name in os.listdir(folder_path):
         if file_name.endswith(".xls"):
             file_path = folder_path + "/" + file_name
@@ -62,7 +61,6 @@ def benchmarking_and_compco(file_path):
     http://www.et.byu.edu/~treedoug/_pages/teaching/ChEn263/Lectures/Lec23-XLWings_handout.pdf
     https://www.dataquest.io/blog/python-excel-xlwings-tutorial/
     """
-
     # open the workbook in excel and set references names
     wb = xw.Book(file_path)
 
@@ -154,7 +152,6 @@ def benchmarking_and_compco(file_path):
     compco_set_up(sheet_names)
 
     # Set up Percentile table
-
     comp_sh.range("K22").value = "Applied Percentile"
     comp_sh.range("L22").formula = "=BENCHMARKING!D28"
     comp_sh.range("L22").number_format = "0%"
@@ -187,7 +184,6 @@ def benchmarking_and_compco(file_path):
 def compco_set_up(sheet_names):
     ''''
     sheet_names = [fd_sh, tm_sh, op_sh, comp_sh, ben_sh]
-
     '''
     financial_data = sheet_names[0]
     benchmarking_sheet = sheet_names[-1]
@@ -199,7 +195,6 @@ def compco_set_up(sheet_names):
     names_range.copy(destination=compco_sheet.range("C6"))
 
     # Identify all desired header pages
-
     current_price = financial_data.range("B14").expand('down')
     shrout = financial_data.range("C14").expand('down')
     mcap = financial_data.range("D14").expand('down')
@@ -222,11 +217,10 @@ def compco_set_up(sheet_names):
 
 
 def relative_valuation(sheet_names):
-    """sheet_names = [fd_sh, tm_sh, op_sh, comp_sh, ben_sh]
-    Pull sheet list and m,ake varibles with relevant ones
-
     """
-
+    sheet_names = [fd_sh, tm_sh, op_sh, comp_sh, ben_sh]
+    Pull sheet list and make varibles with relevant ones
+    """
     compco_sheet = sheet_names[3]
     compco_sheet.range("P6").value = "NTM EV/REV"
     compco_sheet.range("Q6").value = "NTM EV/EBITDA"
@@ -307,6 +301,7 @@ def add_vba_macros(wb):
     '''
     # open VBA editor
     vb = wb.app.api.VBE
+
     # add new module & add vba_code str
     module_name = "AnalysisModule"
     for comp in vb.VBProjects(1).VBComponents:

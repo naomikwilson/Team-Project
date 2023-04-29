@@ -11,7 +11,7 @@ import os.path
 
 def create_driver():
     """
-    Creates driver that opens files in incognito.
+    Creates driver that opens browser in incognito.
 
     Source for code:
     - https://www.tutorialspoint.com/how-to-open-browser-window-in-incognito-private-mode-using-python-selenium-webdriver 
@@ -24,7 +24,7 @@ def create_driver():
 
 def login(driver, url, username, password):
     """
-    Logs user into website (url) using username and password.
+    Logs user into Babson login page (url) using username and password.
 
     Sources for code:
     - https://www.thepythoncode.com/article/automate-login-to-websites-using-selenium-in-python 
