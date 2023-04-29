@@ -348,7 +348,6 @@ def create_percentile_equation(range, starting_data_cell, percentile_column):
 def run_macro(wb, macro_name):
     module_name = "AnalysisModule."
     macro = wb.macro(module_name + macro_name)
-    print(macro)
     macro()
 
 

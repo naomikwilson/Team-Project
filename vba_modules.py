@@ -1023,7 +1023,3 @@ def extract_macro_names(vba_code):
         if line.startswith("Sub "):
             macro_names.append(line[4:].strip().rstrip('()'))
     return macro_names
-
-
-macro_name = extract_macro_names(vba_code)
-print((macro_name)[2])
