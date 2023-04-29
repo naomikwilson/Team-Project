@@ -55,6 +55,33 @@ Below are the required libraries to install to run code. Code runs on python - p
 ![Sample Compco](./images/sample_compco.png)
 
 
+## Instructions
+
+    1. Download required libraries to use selenium, aspose, glob, shutil, time, os, and xlwings.
+    2. In Excel settings, enable VBA macros and trust access to the VBA project object model.
+       1. File > Options > Trust Center > Trust Center Settings > Macro Settings
+    3. Fork repository to local computer and ensure folder path is correctly formatted.
+    4. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze.
+    5. Wait for code to run - You will be prompted when it is done. The analysis will be added
+    to each Excel sheet.
+    6. Move these Excel sheets to another local folder before running code again.
+    7. Make individual edits to each Excel as need.
+   
+    *This is just a starting analysis and not a fully comprehensive company valuation.
+
+
+## Download and Installation
+
+Below are the required libraries to install to run code. Code runs on Python - please download latest version:
+
+```bash
+  Install Python - https://www.python.org/downloads/
+  pip install selenium
+  pip install aspose-cells-python
+  pip install glob2
+  pip install xlwings
+```
+
 ## Documentation
 
 [selenium](https://selenium-python.readthedocs.io/)
