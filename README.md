@@ -23,7 +23,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
     6. Move these Excel sheets to another local folder before running code again.
     7. Make individual edits to each Excel as need.
    
-    #This is a starting analysis and not fully comprehensive company valuation.
+    *This is just a starting analysis and not a fully comprehensive company valuation.
 
 
 
