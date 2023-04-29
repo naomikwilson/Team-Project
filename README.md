@@ -27,6 +27,18 @@ The main idea of our project is to automate Financial Comparable Analysis for an
     *This is just a starting analysis and not a fully comprehensive company valuation.
 
 
+## Download and Installation
+
+Below are the required libraries to install to run code. Code runs on python - please download latest version:
+
+```bash
+  Install Python - https://www.python.org/downloads/
+  pip install selenium
+  pip install aspose-cells-python
+  pip install glob2
+  pip install xlwings
+```
+
 
 ## Screenshots
 
@@ -42,19 +54,6 @@ The main idea of our project is to automate Financial Comparable Analysis for an
 
 ![Sample Compco](./images/sample_compco.png)
 
-
-
-## Download and Installation
-
-Below are the required libraries to install to run code. Code runs on python - please download latest version:
-
-```bash
-  Install Python - https://www.python.org/downloads/
-  pip install selenium
-  pip install aspose-cells-python
-  pip install glob2
-  pip install xlwings
-```
 
 ## Documentation
 
