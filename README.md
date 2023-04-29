@@ -18,7 +18,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
     2. In Excel settings, enable VBA macros and trust access to the VBA project object model.
     3. Fork repository to local computer and ensure folder path is correctly formatted.
     4. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze.
-    5. Wait for code to run - You will be prompted when it is done. The analysis will have been added
+    5. Wait for code to run - You will be prompted when it is done. The analysis will be added
     to each Excel sheet.
     6. Move these Excel sheets to another local folder before running code again.
     7. Make individual edits to each Excel as need.
