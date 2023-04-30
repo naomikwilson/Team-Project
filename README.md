@@ -20,8 +20,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
        1. File > Options > Trust Center > Trust Center Settings > Macro Settings [Select "Trust Access to the VBA project object model" and "EnableVBA Macros"]
     3. Fork repository to local computer and ensure folder path is correctly formatted.
     4. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze.
-    5. Wait for code to run - You will be prompted when it is done. The analysis will be added
-       to each Excel sheet.
+    5. Wait for code to run - You will be prompted when it is done. The analysis will be added to each Excel sheet.
     6. Move these Excel sheets to another local folder before running code again.
     7. Make individual edits to each Excel as need.
    
@@ -30,7 +29,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
 
 ## Download and Installation
 
-Below are the required libraries to install to run code. Code runs on python - please download latest version:
+Below are the required libraries to install to run code. Code runs on Python - please download latest version:
 
 ```bash
   Install Python - https://www.python.org/downloads/
