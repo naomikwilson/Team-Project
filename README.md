@@ -49,10 +49,10 @@ Below are the required libraries to install to run code. Code runs on Python - p
 ![Capital IQ Example - AAPL](./images/apple_capIQ.png)
 
 
-### Example of the raw Excel(s) downloaded by the selenium-powered driver in raw xls:
+### Example of the raw Excel(s) downloaded by the selenium-powered driver in raw .xls:
 ![Raw Excel Data Folder](./images/raw_excel.png)
 
-### Folder after using aspose-cell library to convert into .xls to .xlsm:
+### Folder after using aspose-cell library to convert .xls to .xlsm:
 ![Converted Excel Data Folder](./images/converted.png)
 
 ### Sample of the raw data downloaded from Capital IQ in Excel Format:
