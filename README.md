@@ -42,27 +42,27 @@ Below are the required libraries to install to run code. Code runs on Python - p
 
 ## Screenshots
 
-### Enable all Macros in Trust Settings
+### Enable all Macros in Trust Settings:
 ![Enable Macros - Excel](./images/enable%20macros.png)
 
-### Example of Capital IQ data page which web_automation.py reads and automates - pictured is an example company and comps
+### Example of Capital IQ data page which web_automation.py reads and automates - pictured is an example company and comps:
 ![Capital IQ Example - AAPL](./images/apple_capIQ.png)
 
 
-### Example of the raw Excel(s) downloaded by the selenium-powered driver in raw xls 
+### Example of the raw Excel(s) downloaded by the selenium-powered driver in raw xls:
 ![Raw Excel Data Folder](./images/raw_excel.png)
 
-### Folder after using aspose-cell library to convert into xls to xlsm
+### Folder after using aspose-cell library to convert into .xls to .xlsm:
 ![Converted Excel Data Folder](./images/converted.png)
 
-### Sample of the raw data downloaded from Capital IQ in Excel Format
+### Sample of the raw data downloaded from Capital IQ in Excel Format:
 ![Raw Excel Data](./images/sample_excel_data.png)
 
-### Sample of the user-friendly benchmarking analysis conducted by excel_automation.py
+### Sample of the user-friendly benchmarking analysis conducted by excel_automation.py:
 ![Sample Benchmarking](./images/sample_benchmarking.png)
 
 
-### Sample of the user-friendly comparable company analysis conducted by excel_automation.py
+### Sample of the user-friendly comparable company analysis conducted by excel_automation.py:
 ![Sample Compco](./images/sample_compco.png)
 
 
