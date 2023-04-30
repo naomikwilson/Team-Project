@@ -17,7 +17,7 @@ The main idea of our project is to automate Financial Comparable Analysis for an
 
     1. Download required libraries to use selenium, aspose, glob, shutil, time, os, and xlwings.
     2. In Excel settings, enable VBA macros and trust access to the VBA project object model.
-       1. File > Options > Trust Center > Trust Center Settings > Macro Settings [Selected ]
+       1. File > Options > Trust Center > Trust Center Settings > Macro Settings [Select "Trust Access to the VBA project object model" and "EnableVBA Macros"]
     3. Fork repository to local computer and ensure folder path is correctly formatted.
     4. Run Final_Production.py - Enter Babson Email and Password and List of Companies to Analyze.
     5. Wait for code to run - You will be prompted when it is done. The analysis will be added
