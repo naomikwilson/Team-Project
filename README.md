@@ -6,11 +6,11 @@
 
 Team members: Naomi Wilson, Sergio Avila.
 
-Code is designed to automate Comparable Company Analysis using Python, Excel, and CapitalIQ - as such it is tailored for Babson students - but it could also work for anyone with CapitalIQ credentials (after some modifications). 
+Code is designed to automate Comparable Company Analysis using Python, Excel, and Capital IQ - as such it is tailored to Babson students - but it could also work for anyone with Capital IQ credentials (after some modifications). 
 
 
 ### Objective
-The main idea of our project is to automate Financial Comparable Analysis for any industry (publicly-traded) given a series of names or tickers. Our program would analyze and benchmark on various metrics, then use the weighted average of percentile to perform an analysis of the target company versus a group of competitors to determine which ones are under/overvalued relative to how they rank. Project topics include API, Excel Manipulation, Automation, Software Design, and Financial Analysis. Our project runs in two main functions. One utilizes the selenium library to use user credentials to sign into CapitalIQ and download comparable company data. This has several advantages - it has analyst comparables, forward estimates for metrics and multiples, and allows for excel automation which the team wanted to experience given its real world applications for job settings. The other functionality uses os, wlwings, and aspose libraries to convert the excel files into a usable form and then perform a series of analysis on them. The function also injects and calls VBA code that natively takes care of user friendly formatting. 
+The main idea of our project is to automate Financial Comparable Analysis for any industry (publicly-traded) given a series of names or tickers. Our program would analyze and benchmark various metrics, then use the weighted average of percentiles to perform an analysis of the target company versus a group of competitors to determine which ones are under/overvalued relative to how they rank. Our project runs in two main functions. One utilizes the selenium library to use user credentials to sign into Capital IQ and download comparable company data. This has several advantages - it has analyst comparables, forward estimates for metrics and multiples, and allows for Excel automation which the team wanted to experience given its real-world applications for job settings. The other functionality uses os, wlwings, and aspose libraries to convert the Excel files into a usable form and then perform a series of analyses on them. The function also injects and calls VBA code that natively takes care of user-friendly formatting. 
 
 
 ## Instructions
@@ -50,20 +50,20 @@ Below are the required libraries to install to run code. Code runs on python - p
 ![Capital IQ Example - AAPL](./images/apple_capIQ.png)
 
 
-### Example of the raw Excel(s) downloaded by the selenium powered driver in raw xls 
+### Example of the raw Excel(s) downloaded by the selenium-powered driver in raw xls 
 ![Raw Excel Data Folder](./images/raw_excel.png)
 
 ### Folder after using aspose-cell library to convert into xls to xlsm
 ![Converted Excel Data Folder](./images/converted.png)
 
-### Sample of the raw data downloaded from CapitalIQ in Excel Format
+### Sample of the raw data downloaded from Capital IQ in Excel Format
 ![Raw Excel Data](./images/sample_excel_data.png)
 
-### Sample of the user friendly benchmarking analysis conducted by excel_automation.py
+### Sample of the user-friendly benchmarking analysis conducted by excel_automation.py
 ![Sample Benchmarking](./images/sample_benchmarking.png)
 
 
-### Sample of the user friendly comparable company analysis conducted by excel_automation.py
+### Sample of the user-friendly comparable company analysis conducted by excel_automation.py
 ![Sample Compco](./images/sample_compco.png)
 
 
